@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <h1 style="text-align: center;">Strands</h1>
+  <h4 style="text-align: center;">Which strands are you interested in?</h4>
+  <br><br>
+  <form action="/schedule/categories" method="POST">
+    <table class="table category-table">
+      <% categories.forEach(category => { %>
+        <% let isSelected = userCategories.includes(category); %>
+        <% let categoryId = category.replace(/ /g, '-'); %>
+        <tr>
+          <td>
+            <div class="[ form-group ]">
+                <input class="sr-only" aria-label="<%= category %>" tabindex="-1" type="checkbox" name="<%= category %>" id="<%= categoryId %>" autocomplete="off" <% if (isSelected) { %> Checked <% } %> onchange="toggleSelected(this)"/>
+                <div class="[ btn-group ]" tabindex="-1" aria-hidden="true">
+                    <label for="<%= categoryId %>" id="<%= categoryId + '-label' %>" class="btn <% if (isSelected) { %> btn-blue <% } else { %> btn-red <% } %>">
+                        <span class="[ glyphicon glyphicon-ok ]"></span>
+                        <span> </span>
+                    </label>
+                    <label for="<%= categoryId %>" tabindex="0" class="[ btn btn-default active btn-date ]" onkeydown="trapSpaceKey(this, event)">
+                        <%= category %>
+                    </label>
+                </div>
+            </div>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+  </form>
+</div>

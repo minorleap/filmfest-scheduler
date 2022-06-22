@@ -1,0 +1,37 @@
+<h1 style="text-align: center;">Your Schedule</h1>
+<br><br>
+<%
+  let screeningsByDate = {};
+  for (let screening of schedule) {
+    let festDate = new Date(screening.start.getFullYear(), screening.start.getMonth(), screening.start.getDate());
+    if (!screeningsByDate.hasOwnProperty(festDate)) {
+      screeningsByDate[festDate] = [screening];
+    } else {
+      screeningsByDate[festDate].push(screening);
+    }
+  }
+%>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Film</th>
+      <th>Time</th>
+      <th>Venue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (let date in screeningsByDate) { %>
+      <% screeningsByDate[date].forEach(screening => { %>
+        <tr>
+          <td><span class="film-label"><%= screening.film.title %></span></td>
+          <td><%= screening.getFormattedDatetime() %></td>
+          <td><%= screening.venue %></td>
+        </tr>
+      <% }) %>
+    <% } %>
+  </tbody>
+</table>
+<div  class="output-buttons no-print">
+  <button id="print-button" aria-label="print schedule" type="button" class="button btn-red" onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button>
+  <button id="email-button" aria-label="email schedule" type="button" class="button btn-red" onclick="emailSchedule('<%= email %>')"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+</div>

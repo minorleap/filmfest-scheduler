@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <h1 style="text-align: center;">Films</h1>
+  <h4 style="text-align: center;">Which films do you want to see?</h4>
+  <br><br>
+  <form action="/schedule/films" method="POST">
+    <table class="table">
+      <% films.forEach(film => { %>
+        <% let isSelected = userFilms.includes(film.id); %>
+        <tr>
+          <td>
+            <div class="[ form-group films ]">
+                <input class="sr-only" aria-label="<%= film.title %>" tabindex="-1" type="checkbox" name="<%= film.id %>" id="<%= film.id %>" autocomplete="off" <% if (isSelected) { %> Checked <% } %> onchange="toggleSelected(this)"/>
+                <div class="[ btn-group ]" tabindex="-1" aria-hidden="true">
+                    <label for="<%= film.id %>" id="<%= film.id + '-label' %>" class="btn <% if (isSelected) { %> btn-blue <% } else { %> btn-red <% } %>">
+                        <span class="[ glyphicon glyphicon-ok ]"></span>
+                        <span> </span>
+                    </label>
+                    <label for="<%= film.id %>" tabindex="0" class="[ btn btn-default active ]" onkeydown="trapSpaceKey(this, event);">
+                        <%= film.title %>
+                    </label>
+                </div>
+            </div>
+          </td>
+          <td class="modal-btn-container" aria-hidden="true">
+            <button id="modal-button-<%= film.id %>" name="<%= film.title %> details" type="button" class="modal-button" data-toggle="modal" data-target="#myModal-<%= film.id %>"
+              onclick="appendImage(<%= film.id %>, '<%= film.imageURL %>')">
+                <span class="glyphicon glyphicon-film"></span>
+            </button>
+          </td>
+        </tr>
+        <div id="myModal-<%= film.id %>" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <h4 class="modal-title"><%= film.title %></h4>
+            <button type="button" class="button modal-close-button" data-dismiss="modal">X</button>
+            <div class="modal-body">
+              <p><%= film.description %></p>
+              <div class="modal-image"></div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </table>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+
+  </form>
+</div>

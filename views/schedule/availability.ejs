@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <h1 style="text-align: center;">Dates</h1>
+  <h4 style="text-align: center;">When will you be at the festival?</h4>
+  <br><br>
+  <form action="/schedule/availability" method="POST">
+    <table class="table availability-table">
+      <% dates.forEach(date => { %>
+        <% let isSelected = userAvailability.includes(date); %>
+        <% let dateId = date.replace(/ /g, '-'); %>
+        <% let dateText = date.replace(/ [0-9]{4}/g, ''); %>
+        <tr>
+          <td>
+            <div class="[ form-group ]">
+                <input class="sr-only" aria-label="<%= date %>" tabindex="-1" type="checkbox" name="<%= date.replace(/ /g, '-') %>" id="<%= date.replace(/ /g, '-') %>" autocomplete="off" <% if (isSelected) { %> Checked <% } %> onchange="toggleSelected(this)"/>
+                <div class="[ btn-group ]" tabindex="-1" aria-hidden="true">
+                    <label for="<%= dateId %>" id="<%= dateId + '-label'%>" class="btn <% if (isSelected) { %> btn-blue <% } else { %> btn-red <% } %>">
+                        <span class="[ glyphicon glyphicon-ok ]"></span>
+                        <span> </span>
+                    </label>
+                    <label for="<%= dateId %>" tabindex="0" class="[ btn btn-default active btn-date ]" onkeydown="trapSpaceKey(this, event);">
+                        <%= dateText %>
+                    </label>
+                </div>
+            </div>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+  </form>
+</div>

@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <h1 style="text-align: center;">Priorities</h1>
+  <h4 style="text-align: center;">Sort the must-haves from the nice-to-haves</h4>
+  <br><br>
+  <form action="/schedule/priorities" method="POST">
+    <table class="table">
+
+      <% films.forEach(film => { %>
+        <% let filmPriority; %>
+        <% if ((priorities) && (priorities.hasOwnProperty(film.id))) filmPriority = priorities[film.id]; %>
+        <tr>
+          <td>
+            <span class="film-label"><%= film.title %></span>
+          </td>
+          <td class="radio-btn-container">
+            <div class="form-check form-check-inline">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary <% if (filmPriority == 'high') { %> active <% } %>" for="<%= film.id %>-high">
+                  <input type="radio" name="<%= film.id %>" id="<%= film.id %>-high" value="high" <% if (filmPriority == 'high') { %> Checked <% } %>> High
+                </label>
+                <label class="btn btn-secondary <% if (filmPriority == 'medium') { %> active <% } %>" for="<%= film.id %>-medium">
+                  <input type="radio" name="<%= film.id %>" id="<%= film.id %>-medium" value="medium" <% if (filmPriority == 'medium') { %> Checked <% } %>> Medium
+                </label>
+                <label class="btn btn-secondary <% if (filmPriority == 'low' || !filmPriority) { %> active <% } %>" for="<%= film.id %>-low">
+                  <input type="radio" name="<%= film.id %>" id="<%= film.id %>-low" value="low" <% if (filmPriority == 'low' || !filmPriority) { %> Checked <% } %>> Low
+                </label>
+              </div>
+            </div>
+          </td>
+          <td class="modal-btn-container" aria-hidden='true'>
+            <button id="modal-button-<%= film.id %>" type="button" class="modal-button" data-toggle="modal" data-target="#myModal-<%= film.id %>"
+              onclick="appendImage(<%= film.id %>, '<%= film.imageURL %>')">
+              <span class="glyphicon glyphicon-film"></span>
+            </button>
+          </td>
+        </tr>
+        <div id="myModal-<%= film.id %>" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <h4 class="modal-title"><%= film.title %></h4>
+            <button type="button" class="button modal-close-button" data-dismiss="modal">X</button>
+            <div class="modal-body">
+              <p><%= film.description %></p>
+              <div class="modal-image"></div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </table>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+
+  </form>
+</div>

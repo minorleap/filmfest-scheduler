@@ -1,0 +1,189 @@
+Sun Aug 11 19:52 Added close button to priorities view modals
+
+Sun Aug 11 19:50 Style changes
+Added 404 and error pages.
+Changed fonts.
+Added close button to modals.
+Renamed 'availability' to 'dates' to fit navbar on small phones.
+
+Sun Aug 11 18:07 Restyle buttons
+
+Sun Aug 11 16:24 Tidy
+
+Sun Aug 11 16:23 When a film is added, it is added to priorities with a default value.
+This prevents a bug where users could add a film without giving it a
+priority and then recalculate the schedule, causing a crash.
+
+Sun Aug 11 14:44 Bug fix: no longer crashes when empty priorities are submitted
+
+Sun Aug 11 02:28 Workaround for mismatching inputs issue.
+Users can update their films without updating their priorities, causing
+unprioritised films to be sent to the scheduler. Screenings are now
+filtered by priorities in addition to dates, categories and films.
+A more robust solution is required, as ignoring films that have been
+added but not prioritised could be confusing/misleading.
+
+Sun Aug 11 02:23 Schedules are automatically recalculated when necessary.
+Added a boolean 'updated' field to the User model schema. This is set to
+true when dates/categories/films/priorities are updated and reset to
+false when the schedule is calculated. This allows the schedule to be
+recalculated only when necessary. The recalculate button has been
+removed from the schedule view.
+
+Sat Aug 10 22:28 More accessibility changes
+Users can now use the application using a screen reader or keyboard
+only. Screen readers can detect the real checkboxes only while other
+users can detect the custom checkboxes only. Custom checkboxes can now
+be controlled using the space key via an event handler.
+The film details modal buttons have been hidden from screen readers due
+to difficulties in getting screen readers to detect pop-ups (they parse
+the content up-front).
+
+Sat Aug 10 14:35 Accessibility changes
+All pages now score 96% on Lighthouse.
+Colour contrast score is equal to EIFF website.
+
+Sat Aug 10 13:30 Added headings on schedule views to provide context/instsruction
+
+Fri Aug 9 18:47 Select scheduling algorithm based on input.
+1. Use RLP if all films have the same priority.
+2. Use Top Down if there aren't too many top-priority films to complete
+quickly.
+3. Use Minimum Conflict otherwise.
+
+Fri Aug 9 15:06 Check if screenings is empty before scheduling
+
+Fri Aug 9 15:04 Finished print and email functionality.
+Added feedback to email function.
+Restyled print, email and recalculate buttons.
+
+Fri Aug 9 14:06 Navbar and buttons excluded from print on schedule view
+
+Fri Aug 9 00:37 Fixed bugs with styled checkboxes and radio buttons.
+Selections were not being added to the database correctly after changing
+the style of the form inputs
+
+Fri Aug 9 00:35 Added schedule emailing functionality
+
+Wed Aug 7 23:38 Added red/blue color scheme to selected/unselected checkboxes
+
+Wed Aug 7 21:42 Styling changes
+Custom checkboxes and radio buttons added.
+Tables on availability and categories views are now centred and shrink
+width to fit content.
+Items in rows are now vertically-aligned.
+
+Wed Aug 7 10:36 Changed style of info modal buttons on priorities view
+
+Wed Aug 7 10:14 Changed style of info modal buttons
+
+Sat Aug 3 15:47 Implemented topDown algorithm
+
+Sat Aug 3 14:47 Added overlapsWith() and isIncompatibleWith() functions to Screening
+
+Fri Aug 2 22:05 Implemented Recursive Longest Path algorithm
+Added getScreeningsByDate(), which returns an object with dates mapped
+to arrays of screenings.
+Renamed can_precede() to canPrecede().
+Incorporated lodash.clonedeep to copy graph arrays.
+Removed unused module axios.
+
+Fri Aug 2 12:49 Priority defaults to medium
+
+Thu Aug 1 18:03 Center schedule view headings
+
+Thu Aug 1 07:31 Added tables to all schedule views
+
+Thu Aug 1 07:30 Replaced login and signup pages with index page
+
+Thu Aug 1 00:55 Added vertical rule between forms on index page
+
+Thu Aug 1 00:42 Combined Sign In/Sign Up form
+
+Thu Aug 1 00:42 Added margin to bottom of schedule pages
+
+Thu Aug 1 00:19 Removing redundant container from schedule pages.
+This was causing the page to be wider than intended
+
+Wed Jul 31 23:49 Removed log in button from layout
+
+Wed Jul 31 23:44 Lots of small style changes
+
+Tue Jul 30 23:17 setSchedule retrieves lean user data so that priorities is a POJO
+
+Tue Jul 30 23:16 Fixed a bug with minimumConflict scheduling
+The filter in getDisjointVertices() was not working, resulting in the
+scheduler attempting to include multiple screenings of the same film
+
+Tue Jul 30 13:47 Added button to schedule view to recalculate schedule
+
+Tue Jul 30 13:35 Changed layout of login form
+
+Tue Jul 30 13:29 Sold out screenings now filtered out.
+The sold out property has been removed from the Screening class. Instead
+sold out screenings are skipped by the parser.
+
+Tue Jul 30 00:30 Images are now loaded via AJAX as required
+Previously all images were downloaded as part of the films page
+
+Mon Jul 29 18:13 All schedule pages now redirect unauthenticated requests
+All schedule routes are initially passed through a new function,
+isAuthenticated. If the request is not authenticated, the user is
+redirected to the login page.
+
+Sun Jul 28 21:27 Views now retain previous user selections.
+Checkboxes and radio buttons on the availability, categories, films and
+priorites views are set according to the user's data.
+getPriorities has been renamed getSelectedFilms
+
+Sun Jul 28 14:02 Schedules are now stored in and retrieved from the database
+Submitting priorities causes a schedule to be generated. The schedule is
+stored as an array of Screening IDs in the database.
+The Schedule view is now generated by using the user's schedule as a
+filter
+
+Sun Jul 28 12:43 Draft of schedule view
+Screening class now has getFormattedDatetime function
+
+Sun Jul 28 12:12 Implemented minimum conflict algorithm
+Added iter-tools to dependencies.
+Added minConflict, getScore and printSchedule functions to scheduler.js
+Created draft of schedule view
+
+Thu Jul 25 14:04 Completed Graph class
+Vertices now have filmNeighbours and overlapNeighbours.
+removeVertex() now removes references to the vertex from its
+filmNeighbours and overlapNeighbours before deleting the vertex.
+selectVertex() now removes all filmNeighbours and all overlapNeighbours
+before removing (and returning) itself
+
+Thu Jul 25 13:21 Updated Graph class to properly handle overlap edges and film edges
+
+Thu Jul 25 00:25 Added topologicalSort() and longestPath() functions to DiGraph class
+
+Tue Jul 23 23:38 Fixed DiGraph code for adding vertices and edges and removing vertices
+
+Tue Jul 23 21:41 Finished Graph class
+Rebuilt the data Graph data structure
+Added functions to find isolated vertices (screenings with no conflicts)
+and to find the vertex with the least conflict weight
+
+Tue Jul 23 19:28 Merge remote-tracking branch 'refs/remotes/origin/master'
+
+Tue Jul 23 19:26 Added getDisjointVertices() function to Graph class.
+Consider changing this so that it returns a single disjoint vertex
+rather than an array of all disjoint vertices
+
+Sun Jul 21 22:45 fixed Graph.removeVertex()
+removeVertex() now deletes the vertex and its neighbours rather than
+deleting the vertex and its neighbours' references to it
+
+Sun Jul 21 22:33 Added outlines for Graph, DiGraph and schedule modules
+
+Sun Jul 14 22:11 Finished plumbing
+
+Sun Jul 14 18:11 Restructured code
+lib folder now contains parser, screening, film and venue modules.
+new coordinator file manages communication between scheduleController and lib modules. coordinator loads screening objects via parser and provides an interface for retrieving information from them.
+
+Sun Jul 14 12:40 initial commit

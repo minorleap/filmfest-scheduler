@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=.8, maximum-scale=5">
+	<title>EIFF Scheduler</title>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/eiffScheduler.js"></script>
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<link rel="stylesheet" href="/css/eiffScheduler.css">
+</head>
+
+<body onload="markActiveNav()">
+	<div id="nav">
+		<div class="col-sm nav-align">
+			<h1 id="title">EIFF Scheduler</h1>
+		</div>
+		<div class="col-sm nav-align no-print">
+			<a href="/schedule/availability">
+				<span class="button">dates</span>
+			</a>
+			<a href="/schedule/categories">
+				<span class="button">strands</span>
+			</a>
+			<a href="/schedule/films">
+				<span class="button">films</span>
+			</a>
+			<a href="/schedule/priorities">
+				<span class="button">priorities</span>
+			</a>
+			<a href="/schedule/schedule">
+				<span class="button">schedule</span>
+			</a>
+		</div>
+
+		<% if (loggedIn) { %>
+			<div class="login no-print">
+				<span class="log-out">
+					<a href="/users/logout">Log out</a>
+				</span>
+			</div>
+		<% } %>
+	</div>
+
+	<div class="flashes">
+	<% if (flashMessages) { %>
+		<% if (flashMessages.success) { %>
+			<div class="flash success"><%= flashMessages.success.join(" - ") %></div>
+		<% } else if (flashMessages.error) { %>
+			<div class="flash error"><%= flashMessages.error.join(" - ") %></div>
+		<% } %>
+	<% } %>
+	</div>
+
+	<div class="container">
+		<%- body %>
+	</div>
+
+</body>
+
+</html>

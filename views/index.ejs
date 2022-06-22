@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="container-fluid text-center">
+    <h1>Sign In/Sign Up</h1>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-sm-6 login-form left-column">
+      <div class="data-form">
+        <form class="form-signin" action="/users/login" method="POST">
+          <h3 class="form-signin-heading">Existing Users:</h2>
+          <label for="loginInputEmail" tabindex="-1" aria-hidden="true">Email</label>
+          <input type="email" name="email" id="loginInputEmail" class="form-control" placeholder="Email" autocomplete="username" aria-label="existing user email" autofocus required>
+          <label for="loginInputPassword" tabindex="-1" aria-hidden="true">Password</label>
+          <input type="password" name="password" id="loginInputPassword" class="form-control" placeholder="Password" autocomplete="current-password" aria-label="existing user password" required>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm-6 login-form right-column">
+      <div class="data-form">
+        <form class="form-signin" action="/users/create" method="POST">
+          <h3 class="form-signin-heading">New Users:</h2>
+          <label for="signupInputEmail" aria-hidden="true" tabindex="-1">Email</label>
+          <input type="email" name="email" id="signupInputEmail" class="form-control" placeholder="Email" autocomplete="username" aria-label="new user email" required>
+          <label for="signupInputPassword" aria-hidden="true" tabindex="-1">Password</label>
+          <input type="password" name="password" id="signupInputPassword" class="form-control" placeholder="Password" autocomplete="current-password" aria-label="new user password" required>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
